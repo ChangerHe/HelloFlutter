@@ -69,11 +69,19 @@ class MyScaffold extends StatelessWidget {
               style: Theme.of(context).textTheme.title,
             ),
           ),
+          // Expanded属性设置后, 它会填充其他区块没有填充的剩余空间
+          // 可以设置多个Expanded组件
           new Expanded(
+            // Center 垂直水平居中
             child: new Center(
               child: new Text('Hello, world!'),
             ),
           ),
+          new Expanded(
+            child: new Text(
+              'Hello, world!',
+            ),
+          )
         ],
       ),
     );
