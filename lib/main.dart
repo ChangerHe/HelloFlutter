@@ -1,47 +1,30 @@
+/**
+ * -----------------------------------------------------
+ * 
+ */
+
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
 void main() {
-  // 因为在MyScaffold中使用到了Material的主题, 所以我们需要将MyScaffold继承于MaterialApp, 用以使用MaterialApp中的主题等
   runApp(new MaterialApp(
-    title: 'My app', // used by the OS task switcher
-    home: new MyScaffold(),
+    title: 'Flutter Tutorial',
+    home: new TutorialHome(),
   ));
 }
 
-class MyAppBar extends StatelessWidget {
-  // 这是一个有状态的组件, 增加了一个状态值为title
-  MyAppBar({this.title});
-
-  // Widget子类中的字段往往都会定义为"final"
-
-  final Widget title;
-
+class TutorialHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      height: 136.0, // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
-      // 
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      decoration: new BoxDecoration(color: Colors.blue[500]),
-      // Row 是水平方向的线性布局（linear layout）
-      // 创建水平方向的布局
-      child: new Row(
-        //列表项的类型是 <Widget>
-        // 此处<Widget>是作为一个类型转换, 但是此处如果是Js来讲, 是不需要加额外类型转换的
-        children: <Widget>[
-          new IconButton(
-            // Icons来自于material design, 如果需要的话需要在pubspec中配置use material design
-            icon: new Icon(Icons.menu),
-            // 长按此部分, 可以出现提示
-            tooltip: 'Navigation menu',
-            onPressed: null, // null 会禁用 button
-          ),
-          // Expanded expands its child to fill the available space.
-          new Expanded(
-            // 此处使用到了state中的title字段, 而title中的内容则是通过new AppBar传参进入得到的
-            child: title,
-          ),
+    //Scaffold是Material中主要的布局组件.
+    return new Scaffold(
+      appBar: new AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.menu),
+          tooltip: 'Navigation menu',
+          onPressed: null,
+        ),
+        title: new Text('Example title'),
+        actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.search),
             tooltip: 'Search',
@@ -49,44 +32,239 @@ class MyAppBar extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class MyScaffold extends StatelessWidget {
-  // 这是一个无状态组件
-  @override
-  Widget build(BuildContext context) {
-    // Material 是UI呈现的“一张纸”
-    return new Material(
-      // Column is 垂直方向的线性布局.
-      child: new Column(
-        children: <Widget>[
-          new MyAppBar(
-            title: new Text(
-              'Example title',
-              // 通过material的theme来设置title的样式
-              style: Theme.of(context).textTheme.title,
-            ),
-          ),
-          // Expanded属性设置后, 它会填充其他区块没有填充的剩余空间
-          // 可以设置多个Expanded组件
-          new Expanded(
-            // Center 垂直水平居中
-            child: new Center(
-              child: new Text('Hello, world!'),
-            ),
-          ),
-          new Expanded(
-            child: new Text(
-              'Hello, world!',
-            ),
-          )
-        ],
+      //body占屏幕的大部分
+      body: new Center(
+        // child: MyButton(),
+        child: Counter(),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        tooltip: 'Add', // used by assistive technologies
+        child: new Icon(Icons.add),
+        onPressed: null,
       ),
     );
   }
 }
+
+class MyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      onTap: () {
+        print('MyButton was tapped!');
+      },
+      child: new Container(
+        height: 36.0,
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        decoration: new BoxDecoration(
+          borderRadius: new BorderRadius.circular(5.0),
+          color: Colors.lightGreen[500],
+        ),
+        child: new Center(
+          child: new Text('Engage'),
+        ),
+      ),
+    );
+  }
+}
+
+class CounterDisplay extends StatelessWidget {
+  CounterDisplay({this.count});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Text('Count: $count');
+  }
+}
+
+class CounterIncrementor extends StatelessWidget {
+  CounterIncrementor({this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return new RaisedButton(
+      onPressed: onPressed,
+      child: new Text('Increment'),
+    );
+  }
+}
+
+class Counter extends StatefulWidget {
+  @override
+  _CounterState createState() => new _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int _counter = 0;
+
+  void _increment() {
+    print('pressed');
+    setState(() {
+      ++_counter;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Row(children: <Widget>[
+      new CounterIncrementor(onPressed: _increment),
+      new CounterDisplay(count: _counter),
+    ]);
+  }
+}
+
+// class Counter extends StatefulWidget {
+//   // This class is the configuration for the state. It holds the
+//   // values (in this nothing) provided by the parent and used by the build
+//   // method of the State. Fields in a Widget subclass are always marked "final".
+
+//   @override
+//   _CounterState createState() => new _CounterState();
+// }
+
+// class _CounterState extends State<Counter> {
+//   int _counter = 0;
+
+//   void _increment() {
+//     setState(() {
+//       // This call to setState tells the Flutter framework that
+//       // something has changed in this State, which causes it to rerun
+//       // the build method below so that the display can reflect the
+//       // updated values. If we changed _counter without calling
+//       // setState(), then the build method would not be called again,
+//       // and so nothing would appear to happen.
+//       _counter++;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // This method is rerun every time setState is called, for instance
+//     // as done by the _increment method above.
+//     // The Flutter framework has been optimized to make rerunning
+//     // build methods fast, so that you can just rebuild anything that
+//     // needs updating rather than having to individually change
+//     // instances of widgets.
+//     return new Row(
+//       children: <Widget>[
+//         new RaisedButton(
+//           onPressed: _increment,
+//           child: new Text('Increment $_counter'),
+//         ),
+//         new Text('Count: $_counter'),
+//       ],
+//     );
+//   }
+// }
+
+/**
+ * -----------------------------------------------------
+ * 关于widget
+ */
+
+// import 'package:flutter/material.dart';
+
+// void main() {
+//   // 因为在MyScaffold中使用到了Material的主题, 所以我们需要将MyScaffold继承于MaterialApp, 用以使用MaterialApp中的主题等
+//   runApp(new MaterialApp(
+//     title: 'My app', // used by the OS task switcher
+//     home: new MyScaffold(),
+//   ));
+// }
+
+// class MyAppBar extends StatelessWidget {
+//   // 这是一个有状态的组件, 增加了一个状态值为title
+//   MyAppBar({this.title});
+
+//   // Widget子类中的字段往往都会定义为"final"
+
+//   final Widget title;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Container(
+//       height: 136.0, // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
+//       // 
+//       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+//       decoration: new BoxDecoration(color: Colors.blue[500]),
+//       // Row 是水平方向的线性布局（linear layout）
+//       // 创建水平方向的布局
+//       child: new Row(
+//         //列表项的类型是 <Widget>
+//         // 此处<Widget>是作为一个类型转换, 但是此处如果是Js来讲, 是不需要加额外类型转换的
+//         children: <Widget>[
+//           new IconButton(
+//             // Icons来自于material design, 如果需要的话需要在pubspec中配置use material design
+//             icon: new Icon(Icons.menu),
+//             // 长按此部分, 可以出现提示
+//             tooltip: 'Navigation menu',
+//             onPressed: null, // null 会禁用 button
+//           ),
+//           // Expanded expands its child to fill the available space.
+//           new Expanded(
+//             // 此处使用到了state中的title字段, 而title中的内容则是通过new AppBar传参进入得到的
+//             child: title,
+//           ),
+//           new IconButton(
+//             icon: new Icon(Icons.search),
+//             tooltip: 'Search',
+//             onPressed: null,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// class MyScaffold extends StatelessWidget {
+//   // 这是一个无状态组件
+//   @override
+//   Widget build(BuildContext context) {
+//     // Material 是UI呈现的“一张纸”
+//     return new Material(
+//       // Column is 垂直方向的线性布局.
+//       child: new Column(
+//         children: <Widget>[
+//           new MyAppBar(
+//             title: new Text(
+//               'Example title',
+//               // 通过material的theme来设置title的样式
+//               style: Theme.of(context).textTheme.title,
+//             ),
+//           ),
+//           // Expanded属性设置后, 它会填充其他区块没有填充的剩余空间
+//           // 可以设置多个Expanded组件
+//           new Expanded(
+//             // Center 垂直水平居中
+//             child: new Center(
+//               child: new Text('Hello, world!'),
+//             ),
+//           ),
+//           new Expanded(
+//             child: new Text(
+//               'Hello, world!',
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+/**
+ * -----------------------------------------------------
+ * hello world 和包的使用
+ */
+
+
+// import 'package:flutter/material.dart';
+// import 'package:english_words/english_words.dart';
+
 
 // void main() => runApp(MyApp());
 
