@@ -1,119 +1,243 @@
 /**
  * -----------------------------------------------------
- * todo list demo
+ * widget demo
  */
 
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new MaterialApp(
-    title: 'Shopping App',
-    home: new ShoppingList(
-      products: <Product>[
-        new Product(name: 'Eggs'),
-        new Product(name: 'Flour'),
-        new Product(name: 'Chocolate chips'),
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter layout demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutter layout demo'),
+        ),
+        // Change to buildColumn() for the other column example
+        body: buildRow(),
+      ),
+    );
+  }
+
+  Widget buildRow() =>
+      // #docregion Row
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Image.asset('images/lake.jpg', width: 100,),
+          Image.asset('images/lake.jpg', width: 100),
+          Image.asset('images/lake.jpg', width: 100),
+          Image.network('https://flutter.dev/assets/ui/layout/pavlova-large-annotated-05a910e84242ba5185fe735515cb3f794640f49493036631ec99f768dce107c6.png')
+        ],
+      );
+  // #enddocregion Row
+
+  Widget buildColumn() =>
+      // #docregion Column
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(flex: 2, child: Image.asset('images/lake.jpg')),
+          Expanded(child: Image.asset('images/lake.jpg'),),
+          Expanded(child: Image.asset('images/lake.jpg'),),
+          
+          // Image.asset('images/lake.jpg', width: 100),
+          // Image.asset('images/lake.jpg', width: 100),
+        ],
+        
+      );
+
+}
+
+final stars = Row(
+  mainAxisSize: MainAxisSize.max,
+  children: [
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.green[500]),
+    Icon(Icons.star, color: Colors.black),
+    Icon(Icons.star, color: Colors.black),
+  ],
+);
+
+final ratings = Container(
+  padding: EdgeInsets.all(20),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: <Widget>[
+      stars
+    ],
+  ),
+);
+
+final descTextStyle = TextStyle(
+  color: Colors.black,
+  fontWeight: FontWeight.w800,
+  fontFamily: 'Roboto',
+  letterSpacing: 0.5,
+  fontSize: 18,
+  height: 2,
+);
+
+// DefaultTextStyle.merge() allows you to create a default text
+// style that is inherited by its child and all subsequent children.
+final iconList = DefaultTextStyle.merge(
+  style: descTextStyle,
+  child: Container(
+    padding: EdgeInsets.all(20),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Column(
+          children: [
+            Icon(Icons.kitchen, color: Colors.green[500]),
+            Text('PREP:'),
+            Text('25 min'),
+          ],
+        ),
+        Column(
+          children: [
+            Icon(Icons.timer, color: Colors.green[500]),
+            Text('COOK:'),
+            Text('1 hr'),
+          ],
+        ),
+        Column(
+          children: [
+            Icon(Icons.restaurant, color: Colors.green[500]),
+            Text('FEEDS:'),
+            Text('4-6'),
+          ],
+        ),
       ],
     ),
-  ));
-}
+  ),
+);
 
-class Product {
-  const Product({this.name});
-  final String name;
-}
+/**
+ * -----------------------------------------------------
+ * todo list demo
+ */
 
-typedef void CartChangedCallback(Product product, bool inCart);
+// import 'package:flutter/material.dart';
 
-class ShoppingListItem extends StatelessWidget {
-  ShoppingListItem({
-    Product product,
-    this.inCart,
-    this.onCartChanged
-  }) : product = product, super(key: new ObjectKey(product));
-  // 是无状态的。它将其在构造函​​数中接收到的值存储在final成员变量中，然后在build函数中使用它们
-  final Product product;
-  final bool inCart;
-  final CartChangedCallback onCartChanged;
+// void main() {
+//   runApp(new MaterialApp(
+//     title: 'Shopping App',
+//     home: new ShoppingList(
+//       products: <Product>[
+//         new Product(name: 'Eggs'),
+//         new Product(name: 'Flour'),
+//         new Product(name: 'Chocolate chips'),
+//       ],
+//     ),
+//   ));
+// }
 
-  // 获取颜色的函数
-  Color _getColor(BuildContext context) {
-    return inCart ? Colors.black54 : Theme.of(context).primaryColor;
-  }
+// class Product {
+//   const Product({this.name});
+//   final String name;
+// }
 
-  TextStyle _getTextStyle(BuildContext context) {
-    if (!inCart) return null;
+// typedef void CartChangedCallback(Product product, bool inCart);
 
-    return new TextStyle(
-      color: Colors.black54,
-      decoration: TextDecoration.lineThrough
-    );
-  }
+// class ShoppingListItem extends StatelessWidget {
+//   ShoppingListItem({
+//     Product product,
+//     this.inCart,
+//     this.onCartChanged
+//   }) : product = product, super(key: new ObjectKey(product));
+//   // 是无状态的。它将其在构造函​​数中接收到的值存储在final成员变量中，然后在build函数中使用它们
+//   final Product product;
+//   final bool inCart;
+//   final CartChangedCallback onCartChanged;
 
-  @override
-  Widget build(BuildContext context) {
-    return new ListTile(
-      onTap: () {
-        onCartChanged(product, !inCart);
-      },
-      leading: new CircleAvatar(
-        backgroundColor: inCart ? Colors.black54 : Theme.of(context).primaryColor,
-        child: new Text(product.name[0]),
-      ),
-      title: new Text(product.name, style: _getTextStyle(context))
-    );
-  }
-}
-class ShoppingList extends StatefulWidget {
-  ShoppingList({Key key, this.products}) : super(key: key);
+//   // 获取颜色的函数
+//   Color _getColor(BuildContext context) {
+//     return inCart ? Colors.black54 : Theme.of(context).primaryColor;
+//   }
 
-  final List<Product> products;
+//   TextStyle _getTextStyle(BuildContext context) {
+//     if (!inCart) return null;
 
-  // The framework calls createState the first time a widget appears at a given
-  // location in the tree. If the parent rebuilds and uses the same type of
-  // widget (with the same key), the framework will re-use the State object
-  // instead of creating a new State object.
+//     return new TextStyle(
+//       color: Colors.black54,
+//       decoration: TextDecoration.lineThrough
+//     );
+//   }
 
-  @override
-  _ShoppingListState createState() => new _ShoppingListState();
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return new ListTile(
+//       onTap: () {
+//         onCartChanged(product, !inCart);
+//       },
+//       leading: new CircleAvatar(
+//         backgroundColor: inCart ? Colors.black54 : Theme.of(context).primaryColor,
+//         child: new Text(product.name[0]),
+//       ),
+//       title: new Text(product.name, style: _getTextStyle(context))
+//     );
+//   }
+// }
+// class ShoppingList extends StatefulWidget {
+//   ShoppingList({Key key, this.products}) : super(key: key);
 
-class _ShoppingListState extends State<ShoppingList> {
-  Set<Product> _shoppingCart = new Set<Product>();
+//   final List<Product> products;
 
-  void _handleCartChanged(Product product, bool inCart) {
-    setState(() {
-      // When user changes what is in the cart, we need to change _shoppingCart
-      // inside a setState call to trigger a rebuild. The framework then calls
-      // build, below, which updates the visual appearance of the app.
+//   // The framework calls createState the first time a widget appears at a given
+//   // location in the tree. If the parent rebuilds and uses the same type of
+//   // widget (with the same key), the framework will re-use the State object
+//   // instead of creating a new State object.
 
-      if (inCart)
-        _shoppingCart.add(product);
-      else
-        _shoppingCart.remove(product);
-    });
-  }
+//   @override
+//   _ShoppingListState createState() => new _ShoppingListState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Shopping List'),
-      ),
-      body: new ListView(
-        padding: new EdgeInsets.symmetric(vertical: 8.0),
-        children: widget.products.map((Product product) {
-          return new ShoppingListItem(
-            product: product,
-            inCart: _shoppingCart.contains(product),
-            onCartChanged: _handleCartChanged,
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
+// class _ShoppingListState extends State<ShoppingList> {
+//   Set<Product> _shoppingCart = new Set<Product>();
 
+//   void _handleCartChanged(Product product, bool inCart) {
+//     setState(() {
+//       // When user changes what is in the cart, we need to change _shoppingCart
+//       // inside a setState call to trigger a rebuild. The framework then calls
+//       // build, below, which updates the visual appearance of the app.
+
+//       if (inCart)
+//         _shoppingCart.add(product);
+//       else
+//         _shoppingCart.remove(product);
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Scaffold(
+//       appBar: new AppBar(
+//         title: new Text('Shopping List'),
+//       ),
+//       body: new ListView(
+//         padding: new EdgeInsets.symmetric(vertical: 8.0),
+//         children: widget.products.map((Product product) {
+//           return new ShoppingListItem(
+//             product: product,
+//             inCart: _shoppingCart.contains(product),
+//             onCartChanged: _handleCartChanged,
+//           );
+//         }).toList(),
+//       ),
+//     );
+//   }
+// }
 
 /**
  * -----------------------------------------------------
@@ -306,7 +430,7 @@ class _ShoppingListState extends State<ShoppingList> {
 //   Widget build(BuildContext context) {
 //     return new Container(
 //       height: 136.0, // 单位是逻辑上的像素（并非真实的像素，类似于浏览器中的像素）
-//       // 
+//       //
 //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
 //       decoration: new BoxDecoration(color: Colors.blue[500]),
 //       // Row 是水平方向的线性布局（linear layout）
@@ -378,10 +502,8 @@ class _ShoppingListState extends State<ShoppingList> {
  * hello world 和包的使用
  */
 
-
 // import 'package:flutter/material.dart';
 // import 'package:english_words/english_words.dart';
-
 
 // void main() => runApp(MyApp());
 
@@ -459,7 +581,7 @@ class _ShoppingListState extends State<ShoppingList> {
 //             _suggestions.addAll(generateWordPairs().take(10));
 //           }
 //           return _buildRow(_suggestions[index]);
-//         }, 
+//         },
 //       );
 //     }
 
