@@ -1,122 +1,239 @@
 /**
  * -----------------------------------------------------
- * 
+ * todo list demo
  */
 
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(new MaterialApp(
-    title: 'Flutter Tutorial',
-    home: new TutorialHome(),
+    title: 'Shopping App',
+    home: new ShoppingList(
+      products: <Product>[
+        new Product(name: 'Eggs'),
+        new Product(name: 'Flour'),
+        new Product(name: 'Chocolate chips'),
+      ],
+    ),
   ));
 }
 
-class TutorialHome extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    //Scaffold是Material中主要的布局组件.
-    return new Scaffold(
-      appBar: new AppBar(
-        leading: new IconButton(
-          icon: new Icon(Icons.menu),
-          tooltip: 'Navigation menu',
-          onPressed: null,
-        ),
-        title: new Text('Example title'),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: null,
-          ),
-        ],
-      ),
-      //body占屏幕的大部分
-      body: new Center(
-        // child: MyButton(),
-        child: Counter(),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        tooltip: 'Add', // used by assistive technologies
-        child: new Icon(Icons.add),
-        onPressed: null,
-      ),
-    );
-  }
+class Product {
+  const Product({this.name});
+  final String name;
 }
 
-class MyButton extends StatelessWidget {
+typedef void CartChangedCallback(Product product, bool inCart);
+
+class ShoppingListItem extends StatelessWidget {
+  ShoppingListItem({
+    Product product,
+    this.inCart,
+    this.onCartChanged
+  }) : product = product, super(key: new ObjectKey(product));
+  // 是无状态的。它将其在构造函​​数中接收到的值存储在final成员变量中，然后在build函数中使用它们
+  final Product product;
+  final bool inCart;
+  final CartChangedCallback onCartChanged;
+
+  // 获取颜色的函数
+  Color _getColor(BuildContext context) {
+    return inCart ? Colors.black54 : Theme.of(context).primaryColor;
+  }
+
+  TextStyle _getTextStyle(BuildContext context) {
+    if (!inCart) return null;
+
+    return new TextStyle(
+      color: Colors.black54,
+      decoration: TextDecoration.lineThrough
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new GestureDetector(
+    return new ListTile(
       onTap: () {
-        print('MyButton was tapped!');
+        onCartChanged(product, !inCart);
       },
-      child: new Container(
-        height: 36.0,
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        decoration: new BoxDecoration(
-          borderRadius: new BorderRadius.circular(5.0),
-          color: Colors.lightGreen[500],
-        ),
-        child: new Center(
-          child: new Text('Engage'),
-        ),
+      leading: new CircleAvatar(
+        backgroundColor: inCart ? Colors.black54 : Theme.of(context).primaryColor,
+        child: new Text(product.name[0]),
       ),
+      title: new Text(product.name, style: _getTextStyle(context))
     );
   }
 }
+class ShoppingList extends StatefulWidget {
+  ShoppingList({Key key, this.products}) : super(key: key);
 
-class CounterDisplay extends StatelessWidget {
-  CounterDisplay({this.count});
+  final List<Product> products;
 
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    return new Text('Count: $count');
-  }
-}
-
-class CounterIncrementor extends StatelessWidget {
-  CounterIncrementor({this.onPressed});
-
-  final VoidCallback onPressed;
+  // The framework calls createState the first time a widget appears at a given
+  // location in the tree. If the parent rebuilds and uses the same type of
+  // widget (with the same key), the framework will re-use the State object
+  // instead of creating a new State object.
 
   @override
-  Widget build(BuildContext context) {
-    return new RaisedButton(
-      onPressed: onPressed,
-      child: new Text('Increment'),
-    );
-  }
+  _ShoppingListState createState() => new _ShoppingListState();
 }
 
-class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() => new _CounterState();
-}
+class _ShoppingListState extends State<ShoppingList> {
+  Set<Product> _shoppingCart = new Set<Product>();
 
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  void _increment() {
-    print('pressed');
+  void _handleCartChanged(Product product, bool inCart) {
     setState(() {
-      ++_counter;
+      // When user changes what is in the cart, we need to change _shoppingCart
+      // inside a setState call to trigger a rebuild. The framework then calls
+      // build, below, which updates the visual appearance of the app.
+
+      if (inCart)
+        _shoppingCart.add(product);
+      else
+        _shoppingCart.remove(product);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Row(children: <Widget>[
-      new CounterIncrementor(onPressed: _increment),
-      new CounterDisplay(count: _counter),
-    ]);
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Shopping List'),
+      ),
+      body: new ListView(
+        padding: new EdgeInsets.symmetric(vertical: 8.0),
+        children: widget.products.map((Product product) {
+          return new ShoppingListItem(
+            product: product,
+            inCart: _shoppingCart.contains(product),
+            onCartChanged: _handleCartChanged,
+          );
+        }).toList(),
+      ),
+    );
   }
 }
+
+
+/**
+ * -----------------------------------------------------
+ * count demo
+ */
+
+// import 'package:flutter/material.dart';
+
+// void main() {
+//   runApp(new MaterialApp(
+//     title: 'Flutter Tutorial',
+//     home: new TutorialHome(),
+//   ));
+// }
+
+// class TutorialHome extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     //Scaffold是Material中主要的布局组件.
+//     return new Scaffold(
+//       appBar: new AppBar(
+//         leading: new IconButton(
+//           icon: new Icon(Icons.menu),
+//           tooltip: 'Navigation menu',
+//           onPressed: null,
+//         ),
+//         title: new Text('Example title'),
+//         actions: <Widget>[
+//           new IconButton(
+//             icon: new Icon(Icons.search),
+//             tooltip: 'Search',
+//             onPressed: null,
+//           ),
+//         ],
+//       ),
+//       //body占屏幕的大部分
+//       body: new Center(
+//         // child: MyButton(),
+//         child: Counter(),
+//       ),
+//       floatingActionButton: new FloatingActionButton(
+//         tooltip: 'Add', // used by assistive technologies
+//         child: new Icon(Icons.add),
+//         onPressed: null,
+//       ),
+//     );
+//   }
+// }
+
+// class MyButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return new GestureDetector(
+//       onTap: () {
+//         print('MyButton was tapped!');
+//       },
+//       child: new Container(
+//         height: 36.0,
+//         padding: const EdgeInsets.all(8.0),
+//         margin: const EdgeInsets.symmetric(horizontal: 8.0),
+//         decoration: new BoxDecoration(
+//           borderRadius: new BorderRadius.circular(5.0),
+//           color: Colors.lightGreen[500],
+//         ),
+//         child: new Center(
+//           child: new Text('Engage'),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class CounterDisplay extends StatelessWidget {
+//   CounterDisplay({this.count});
+
+//   final int count;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Text('Count: $count');
+//   }
+// }
+
+// class CounterIncrementor extends StatelessWidget {
+//   CounterIncrementor({this.onPressed});
+
+//   final VoidCallback onPressed;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new RaisedButton(
+//       onPressed: onPressed,
+//       child: new Text('Increment'),
+//     );
+//   }
+// }
+
+// class Counter extends StatefulWidget {
+//   @override
+//   _CounterState createState() => new _CounterState();
+// }
+
+// class _CounterState extends State<Counter> {
+//   int _counter = 0;
+
+//   void _increment() {
+//     print('pressed');
+//     setState(() {
+//       ++_counter;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return new Row(children: <Widget>[
+//       new CounterIncrementor(onPressed: _increment),
+//       new CounterDisplay(count: _counter),
+//     ]);
+//   }
+// }
 
 // class Counter extends StatefulWidget {
 //   // This class is the configuration for the state. It holds the
