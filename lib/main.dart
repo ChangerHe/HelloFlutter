@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
+import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 
 void main() => runApp(
       MaterialApp(
@@ -58,7 +59,18 @@ class IndexRoutesPage extends StatelessWidget {
                   builder: (context) => PageCustomTab()
                 ),);
               },
-              // selected: true,
+            ),
+            ListTile(
+              title: Text(
+                '路由动画',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.tab),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => RouteAnimationPage()
+                ),);
+              },
             ),
             Divider()
           ],
