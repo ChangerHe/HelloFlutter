@@ -16,19 +16,100 @@ class FirstAnimationPage extends StatelessWidget {
       ),
       backgroundColor: Colors.blue,
       body: Center(
-        child: MaterialButton(
-          child: Icon(
-            Icons.navigate_next,
-            color: Colors.black,
-            size: 64,
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
-              // MaterialPageRoute(builder: (context) => SecondAnimationPage())
-              // 在此处使用我们自定义的动画函数即可
-              CustomRouter(SecondAnimationPage())
-            );
-          },
+        child: Column(
+          children: <Widget>[
+            MaterialButton(
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    '渐变动画',
+                    style: TextStyle(fontSize: 32, color: Colors.white),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 64,
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    // MaterialPageRoute(builder: (context) => SecondAnimationPage())
+                    // 在此处使用我们自定义的动画函数即可
+                    CustomRouterFade(SecondAnimationPage()));
+              },
+            ),
+            MaterialButton(
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    '缩放动画',
+                    style: TextStyle(fontSize: 32, color: Colors.white),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 64,
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    // MaterialPageRoute(builder: (context) => SecondAnimationPage())
+                    // 在此处使用我们自定义的动画函数即可
+                    CustomRouterScale(SecondAnimationPage()));
+              },
+            ),
+            MaterialButton(
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    '旋转动画',
+                    style: TextStyle(fontSize: 32, color: Colors.white),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 64,
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    // MaterialPageRoute(builder: (context) => SecondAnimationPage())
+                    // 在此处使用我们自定义的动画函数即可
+                    CustomRouterRotate(SecondAnimationPage()));
+              },
+            ),
+            MaterialButton(
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    '滑动动画',
+                    style: TextStyle(fontSize: 32, color: Colors.white),
+                  ),
+                  Icon(
+                    Icons.navigate_next,
+                    color: Colors.white,
+                    size: 64,
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                    // MaterialPageRoute(builder: (context) => SecondAnimationPage())
+                    // 在此处使用我们自定义的动画函数即可
+                    CustomRouterSlide(SecondAnimationPage()));
+              },
+            ),
+          ],
         ),
       ),
     );
