@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
+import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 
@@ -40,7 +41,7 @@ class IndexRoutesPage extends StatelessWidget {
                 '普通底部导航栏',
               ),
               subtitle: Text('底部导航栏示例'),
-              leading: Icon(Icons.tab),
+              leading: Icon(Icons.tab_unselected),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageTab()
@@ -48,6 +49,7 @@ class IndexRoutesPage extends StatelessWidget {
               },
               // selected: true,
             ),
+            Divider(),
             ListTile(
               title: Text(
                 '自定义底部导航栏',
@@ -60,19 +62,33 @@ class IndexRoutesPage extends StatelessWidget {
                 ),);
               },
             ),
+            Divider(),
             ListTile(
               title: Text(
                 '路由动画',
               ),
               // subtitle: Text(''),
-              leading: Icon(Icons.tab),
+              leading: Icon(Icons.router),
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => RouteAnimationPage()
                 ),);
               },
             ),
-            Divider()
+            Divider(),
+            ListTile(
+              title: Text(
+                '滤镜效果',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.filter),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageFilter()
+                ),);
+              },
+            ),
+            Divider(),
           ],
         ),
       )),
