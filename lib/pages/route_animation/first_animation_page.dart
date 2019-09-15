@@ -6,14 +6,14 @@ class FirstAnimationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'first',
-          style: TextStyle(fontSize: 36),
-        ),
-        // 设置顶部导航条和下面部分的区分界限的阴影部分的大小, 如果为0, 则表示无阴影
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'first',
+      //     style: TextStyle(fontSize: 36),
+      //   ),
+      //   // 设置顶部导航条和下面部分的区分界限的阴影部分的大小, 如果为0, 则表示无阴影
+      //   elevation: 0,
+      // ),
       backgroundColor: Colors.blue,
       body: Center(
         child: Column(
