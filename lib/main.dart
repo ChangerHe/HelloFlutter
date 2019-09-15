@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './pages/page_tab.dart';
+import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
+import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 
 void main() => runApp(
       MaterialApp(
@@ -35,7 +36,7 @@ class IndexRoutesPage extends StatelessWidget {
           children: <Widget>[
             ListTile(
               title: Text(
-                '底部导航栏',
+                '普通底部导航栏',
               ),
               subtitle: Text('底部导航栏示例'),
               leading: Icon(Icons.tab),
@@ -43,7 +44,19 @@ class IndexRoutesPage extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageTab()
                 ),);
-                print('123');
+              },
+              // selected: true,
+            ),
+            ListTile(
+              title: Text(
+                '自定义底部导航栏',
+              ),
+              subtitle: Text('底部导航栏示例'),
+              leading: Icon(Icons.tab),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageCustomTab()
+                ),);
               },
               // selected: true,
             ),

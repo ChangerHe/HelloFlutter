@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../containers/bottom_navigation_widget.dart';
+import 'package:hello_flutter/pages/page_tab/bottom_navigation_widget.dart';
 
 void main(List<String> args) {
   runApp(PageTab());
@@ -16,6 +16,7 @@ class PageTab extends StatelessWidget {
         title: 'Tab 测试',
         home: BottomNavigationWidget(),
       ),
+      
     );
   }
 }
