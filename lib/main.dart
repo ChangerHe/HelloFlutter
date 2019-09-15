@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
+import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 
@@ -16,7 +17,7 @@ class IndexRoutesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Index Routes'),
+        title: Text('Examples'),
       ),
       body: Container(
           child: Card(
@@ -85,6 +86,19 @@ class IndexRoutesPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageFilter()
+                ),);
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text(
+                '切换时保持页面状态',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.local_hotel),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageKeepTabAlive()
                 ),);
               },
             ),
