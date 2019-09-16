@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
+import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
@@ -113,6 +114,19 @@ class IndexRoutesPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageSearchBar()
+                ),);
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text(
+                '媒体查询和流式布局',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.perm_media),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageMediaQuery()
                 ),);
               },
             ),
