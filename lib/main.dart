@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
+import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
 import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
@@ -127,6 +128,19 @@ class IndexRoutesPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageMediaQuery()
+                ),);
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text(
+                '展开闭合组件',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.explore),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageExpand()
                 ),);
               },
             ),
