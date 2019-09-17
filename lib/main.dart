@@ -12,6 +12,8 @@ void main() => runApp(
       MaterialApp(
         title: 'Index Route Page',
         home: IndexRoutesPage(),
+        theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
       ),
     );
 

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_custom_tab/dynamic_tab_widget.dart';
 
-void main(List<String> args) {
-  runApp(PageCustomTab());
-}
-
 class PageCustomTab extends StatefulWidget {
   @override
   _PageCustomTabState createState() => _PageCustomTabState();
@@ -29,13 +25,7 @@ class _PageCustomTabState extends State<PageCustomTab> {
       appBar: AppBar(
         title: Text('Custom Tab 测试'),
       ),
-      body: MaterialApp(
-        title: 'Custom Tab 测试',
-        home: _bodyView[_index],
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-        ),
-      ),
+      body: _bodyView[_index],
       // 设置一个浮动的按钮
       floatingActionButton: FloatingActionButton(
         onPressed: () {
