@@ -9,6 +9,7 @@ import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
+import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
 
 class IndexRoutesPage extends StatelessWidget {
   @override
@@ -149,6 +150,19 @@ class IndexRoutesPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageBesselCurve()
+                ),);
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text(
+                '安卓右滑返回',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.slideshow),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => PageRightBack()
                 ),);
               },
             ),
