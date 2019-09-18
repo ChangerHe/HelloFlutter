@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/pages/page_bessel_curve/page_bessel_curve.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
@@ -13,6 +14,7 @@ void main() => runApp(
         title: 'Index Route Page',
         home: IndexRoutesPage(),
         theme: ThemeData.dark(),
+        // 去除debug的图标
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -143,6 +145,19 @@ class IndexRoutesPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) => PageExpand()
+                ),);
+              },
+            ),
+            Divider(),
+            ListTile(
+              title: Text(
+                '贝塞尔曲线',
+              ),
+              // subtitle: Text(''),
+              leading: Icon(Icons.border_horizontal),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => PageBesselCurve()
                 ),);
               },
             ),
