@@ -22,6 +22,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => IndexRoutesPage(),
+            settings: RouteSettings(isInitialRoute: true, name: 'index_route'),
+            // maintainState: false,
+            // 设置为底部往上弹的效果
+            fullscreenDialog: true
           ),
           (route) => route == null,
         );

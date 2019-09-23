@@ -23,11 +23,16 @@ class PanelExamples extends StatelessWidget {
               ),
               subtitle: Text('底部导航栏示例'),
               leading: Icon(Icons.tab_unselected),
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                var result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PageTab()),
+                  MaterialPageRoute(
+                    builder: (context) => PageTab('我是传入的标题'),
+                    fullscreenDialog: true,
+                  ),
                 );
+
+                print(result);
               },
               // selected: true,
             ),
@@ -83,7 +88,9 @@ class PanelExamples extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PageKeepTabAlive()),
+                  MaterialPageRoute(
+                      builder: (context) => PageKeepTabAlive(),
+                      settings: RouteSettings()),
                 );
               },
             ),

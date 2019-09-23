@@ -8,7 +8,12 @@ class TabHomeScreen extends StatelessWidget {
       //   title: Text('HOME'),
       // ),
       body: Center(
-        child: Text('HOME'),
+        child: FlatButton(
+          child: Icon(Icons.flip_to_back),
+          onPressed: () {
+            Navigator.pop(context, '我是返回值');
+          },
+        ),
       ),
     );
   }
