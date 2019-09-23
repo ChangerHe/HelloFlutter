@@ -22,6 +22,14 @@ class PageTab extends StatelessWidget {
       //   ],
       // ),
       body: BottomNavigationWidget(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('floating action bottom');
+          // Navigator.of(context).pushNamed("examples", arguments: "hi");
+        },
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }

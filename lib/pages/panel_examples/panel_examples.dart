@@ -13,159 +13,162 @@ import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
 class PanelExamples extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text(
-                '普通底部导航栏',
-              ),
-              subtitle: Text('底部导航栏示例'),
-              leading: Icon(Icons.tab_unselected),
-              onTap: () async {
-                var result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PageTab('我是传入的标题'),
-                    fullscreenDialog: true,
-                  ),
-                );
+    return Scaffold(
+      body: Container(
+        child: Card(
+          child: ListView(
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  '普通底部导航栏',
+                ),
+                subtitle: Text('底部导航栏示例'),
+                leading: Icon(Icons.tab_unselected),
+                onTap: () async {
+                  var result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PageTab('我是传入的标题'),
+                      fullscreenDialog: true,
+                    ),
+                  );
 
-                print(result);
-              },
-              // selected: true,
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '自定义底部导航栏',
+                  print(result);
+                },
+                // selected: true,
               ),
-              subtitle: Text('底部导航栏示例'),
-              leading: Icon(Icons.tab),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageCustomTab()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '路由动画',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '自定义底部导航栏',
+                ),
+                subtitle: Text('底部导航栏示例'),
+                leading: Icon(Icons.tab),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageCustomTab()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.router),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RouteAnimationPage()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '滤镜效果',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '路由动画',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.router),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RouteAnimationPage()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.filter),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageFilter()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '切换时保持页面状态',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '滤镜效果',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.filter),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageFilter()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.local_hotel),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PageKeepTabAlive(),
-                      settings: RouteSettings()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '搜索条',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '切换时保持页面状态',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.local_hotel),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageKeepTabAlive(),
+                        settings: RouteSettings()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.search),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageSearchBar()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '媒体查询和流式布局',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '搜索条',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.search),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageSearchBar()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.perm_media),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageMediaQuery()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '展开闭合组件',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '媒体查询和流式布局',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.perm_media),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageMediaQuery()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.explore),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageExpand()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '贝塞尔曲线',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '展开闭合组件',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.explore),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageExpand()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.border_horizontal),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageBesselCurve()),
-                );
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: Text(
-                '安卓右滑返回',
+              Divider(),
+              ListTile(
+                title: Text(
+                  '贝塞尔曲线',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.border_horizontal),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageBesselCurve()),
+                  );
+                },
               ),
-              // subtitle: Text(''),
-              leading: Icon(Icons.slideshow),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageRightBack()),
-                );
-              },
-            ),
-            Divider(),
-          ],
+              Divider(),
+              ListTile(
+                title: Text(
+                  '安卓右滑返回',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.slideshow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageRightBack()),
+                  );
+                },
+              ),
+              Divider(),
+            ],
+          ),
         ),
       ),
     );
