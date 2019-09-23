@@ -26,7 +26,8 @@ class PanelIndex extends StatelessWidget {
             Text('456'),
             RaisedButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/examples");
+                // Navigator.pushNamed(context, "/examples", arguments: { "id": "123" });
+                Navigator.of(context).pushNamed("/examples", arguments: { "id": "123" });
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(

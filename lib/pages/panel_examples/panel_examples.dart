@@ -11,8 +11,11 @@ import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
 
 class PanelExamples extends StatelessWidget {
+  final arguments;
+  PanelExamples({this.arguments});
   @override
   Widget build(BuildContext context) {
+  print(arguments);
     return Scaffold(
       body: Container(
         child: Card(
@@ -22,7 +25,7 @@ class PanelExamples extends StatelessWidget {
                 title: Text(
                   '普通底部导航栏',
                 ),
-                subtitle: Text('底部导航栏示例'),
+                subtitle: Text(arguments != null && arguments.id ? '传入了个参数${arguments.id}' : '底部导航栏示例'),
                 leading: Icon(Icons.tab_unselected),
                 onTap: () async {
                   var result = await Navigator.push(
