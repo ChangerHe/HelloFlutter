@@ -11,6 +11,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Animation _animation;
 
   _SplashScreenState() {
+
+    debugPrint('test', wrapWidth: 5);
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 3));

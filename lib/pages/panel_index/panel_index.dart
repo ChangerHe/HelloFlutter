@@ -4,6 +4,9 @@ import 'package:hello_flutter/pages/panel_examples/panel_examples.dart';
 class PanelIndex extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // 通过context对象获取到页面的调用上下文, 从而可以获取到widget的实例
+    Scaffold scaffold = context.ancestorWidgetOfExactType(Scaffold);
+    print((scaffold.appBar as AppBar).title);
     return Column(
       children: <Widget>[
         ButtonBar(

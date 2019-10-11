@@ -15,7 +15,7 @@ class PanelExamples extends StatelessWidget {
   PanelExamples({this.arguments});
   @override
   Widget build(BuildContext context) {
-  print(arguments);
+    print(arguments);
     return Scaffold(
       body: Container(
         child: Card(
@@ -25,9 +25,17 @@ class PanelExamples extends StatelessWidget {
                 title: Text(
                   '普通底部导航栏',
                 ),
-                subtitle: Text(arguments != null && arguments.id ? '传入了个参数${arguments.id}' : '底部导航栏示例'),
+                subtitle: Text(arguments != null && arguments.id
+                    ? '传入了个参数${arguments.id}'
+                    : '底部导航栏示例'),
                 leading: Icon(Icons.tab_unselected),
                 onTap: () async {
+                  try {
+                    Future.delayed(Duration(seconds: 1))
+                        .then((e) => Future.error("xxx"));
+                  } catch (e) {
+                    print(e);
+                  }
                   var result = await Navigator.push(
                     context,
                     MaterialPageRoute(
