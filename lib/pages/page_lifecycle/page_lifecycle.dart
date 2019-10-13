@@ -28,7 +28,7 @@ class _PageLifecycleState extends State<PageLifecycle> {
   @override
   void initState() {
     super.initState();
-    // 在初始化状态时, 将传入的initvalue作为_counter的起始参数
+    // 在初始化状态时, 将传入的initValue作为_counter的起始参数
     _counter = widget.initValue;
     print('initState');
   }
@@ -70,22 +70,40 @@ class _PageLifecycleState extends State<PageLifecycle> {
               builder: (context) {
                 return RaisedButton(
                   onPressed: () {
-                    // 此处演示在widget树中获取state：通过context对象来获取
-                    // 查找父级最近的Scaffold对应的ScaffoldState对象
-                    ScaffoldState _state = context
-                        .ancestorStateOfType(TypeMatcher<ScaffoldState>());
-                    print('$_state state');
-                    //调用ScaffoldState的showSnackBar来弹出SnackBar
+//                    此处演示在widget树中获取state：
+//                    1. 通过context对象来获取
+//                   查找父级最近的Scaffold对应的ScaffoldState对象
+//                    ScaffoldState _state = context
+//                        .ancestorStateOfType(TypeMatcher<ScaffoldState>());
+//                    print('$_state state');
+//                    //调用ScaffoldState的showSnackBar来弹出SnackBar
+//                    _state.showSnackBar(
+//                      SnackBar(
+//                        content: Text("我是SnackBar"),
+//                      ),
+//                    );
+
+//                  2. 直接使用Scaffold.of来获取
+//                  其实是上面的方法的封装
+//                  但是对于Flutter规范来说
+//                  如果允许访问State， 则建议在StatefulWidget中实现一个静态的of方法
+                    ScaffoldState _state = Scaffold.of(context);
                     _state.showSnackBar(
                       SnackBar(
                         content: Text("我是SnackBar"),
                       ),
                     );
+
+//                  3. 通过GlobalKey
+//                  Globalkey
+//                    _drawerKey.currentState.openDrawer()
                   },
                   child: Text("显示SnackBar"),
                 );
               },
-            )
+            ),
+            TapboxA(),
+            ParentWidget(),
           ],
         ),
       ),
@@ -126,5 +144,90 @@ class _PageLifecycleState extends State<PageLifecycle> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('didChangeDependencies');
+  }
+}
+
+// 组件内部管理状态示例
+class TapboxA extends StatefulWidget {
+  TapboxA({Key key}) : super(key: key);
+
+  @override
+  _TapboxAState createState() => new _TapboxAState();
+}
+
+class _TapboxAState extends State<TapboxA> {
+  bool _active = false;
+
+  void _handleTap() {
+    setState(() {
+      _active = !_active;
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      onTap: _handleTap,
+      child: new Container(
+        child: new Center(
+          child: new Text(
+            _active ? 'Active' : 'Inactive',
+            style: new TextStyle(fontSize: 32.0, color: Colors.white),
+          ),
+        ),
+        width: 100.0,
+        height: 100.0,
+        decoration: new BoxDecoration(
+          color: _active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+      ),
+    );
+  }
+}
+
+// 使用父组件保存状态示例
+class ParentWidget extends StatefulWidget {
+  @override
+  _ParentWidgetState createState() => _ParentWidgetState();
+}
+
+class _ParentWidgetState extends State<ParentWidget> {
+
+  void parendOnChanged(active) {
+    print('$active active');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: TapboxB(onChanged: null, active: false,),
+    );
+  }
+}
+
+class TapboxB extends StatelessWidget {
+  TapboxB({
+    Key key,
+    this.active: false,
+    @required this.onChanged,
+}): super(key: key);
+
+  final bool active;
+  final onChanged;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: GestureDetector(
+        child: Container(
+          child: Text(active ? 'abc' : 'def'),
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(color: active ? Colors.blueAccent : Colors.black38),
+        ),
+        onTap: () {
+          onChanged(!active);
+        },
+      ),
+    );
   }
 }
