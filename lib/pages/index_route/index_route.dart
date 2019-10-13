@@ -8,22 +8,22 @@ import 'package:hello_flutter/pages/panel_index/panel_index.dart';
 import 'package:hello_flutter/pages/panel_member/panel_member.dart';
 
 final List<BottomNavigationBarItem> bottomTabs = [
-  BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
+  BottomNavigationBarItem(
+      icon: Icon(CupertinoIcons.folder), title: Text('20个案例')),
   BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), title: Text('分类')),
   BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.shopping_cart), title: Text('购物车')),
   BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
-  BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.folder), title: Text('20个案例')),
+  BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
 ];
 
 final List<String> tabTitles = [
-  '首页',
+  '20个案例',
   '分类',
   '购物车',
   '会员中心',
-  '20个案例'
+  '首页'
 ];
 
 class IndexRoutesPage extends StatefulWidget {
@@ -38,11 +38,11 @@ class _IndexRoutesPageState extends State<IndexRoutesPage> {
 
   _IndexRoutesPageState() {
     _pageList..addAll([
-      PanelIndex(),
+      PanelExamples(),
       PanelCategories(),
       PanelCart(),
       PanelMember(),
-      PanelExamples(),
+      PanelIndex(),
     ]);
     // _pageList..add(value)
   }

@@ -4,6 +4,7 @@ import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
+import 'package:hello_flutter/pages/page_lifecycle/page_lifecycle.dart';
 import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
@@ -174,6 +175,24 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PageRightBack()),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '生命周期',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.local_post_office),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PageLifecycle(
+                        initValue: 5,
+                      ),
+                    ),
                   );
                 },
               ),
