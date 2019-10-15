@@ -103,7 +103,10 @@ class _PageLifecycleState extends State<PageLifecycle> {
               },
             ),
             TapboxA(),
+            Center(child: Text('父子传值'),),
             ParentWidget(),
+            Center(child: Text('混合传值'),),
+            MixinStateWidget(),
           ],
         ),
       ),
@@ -171,7 +174,7 @@ class _TapboxAState extends State<TapboxA> {
         child: new Center(
           child: new Text(
             _active ? 'Active' : 'Inactive',
-            style: new TextStyle(fontSize: 32.0, color: Colors.white),
+            style: new TextStyle(fontSize: 18.0, color: Colors.white),
           ),
         ),
         width: 100.0,
@@ -191,16 +194,20 @@ class ParentWidget extends StatefulWidget {
 }
 
 class _ParentWidgetState extends State<ParentWidget> {
+  bool active = false;
 
-  void parendOnChanged(active) {
+  void parentOnChanged(isActive) {
     print('$active active');
+    setState(() {
+      active = isActive;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      child: TapboxB(onChanged: null, active: false,),
+      child: TapboxB(onChanged: parentOnChanged, active: active,),
     );
   }
 }
@@ -210,19 +217,21 @@ class TapboxB extends StatelessWidget {
     Key key,
     this.active: false,
     @required this.onChanged,
-}): super(key: key);
+  }) : super(key: key);
 
   final bool active;
   final onChanged;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
         child: Container(
-          child: Text(active ? 'abc' : 'def'),
+          child: Center(child: Text(active ? 'abc' : 'def'),),
           width: 100,
           height: 100,
-          decoration: BoxDecoration(color: active ? Colors.blueAccent : Colors.black38),
+          decoration: BoxDecoration(
+              color: active ? Colors.blueAccent : Colors.black38),
         ),
         onTap: () {
           onChanged(!active);
@@ -231,3 +240,80 @@ class TapboxB extends StatelessWidget {
     );
   }
 }
+
+// TODO: 手指按下时: 盒子周围有深绿色边框, 抬起时边框消失, 点击完成后, 盒子颜色改变
+class MixinStateWidget extends StatefulWidget {
+  @override
+  _MixinStateWidgetState createState() => _MixinStateWidgetState();
+}
+
+class _MixinStateWidgetState extends State<MixinStateWidget> {
+  bool _isActive = false;
+  bool isComplete = false;
+
+  void _onTapDown(TapDownDetails details) {
+    print('$details details');
+    setState(() {
+      _isActive = true;
+    });
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    print('$details details');
+    setState(() {
+      _isActive = false;
+    });
+  }
+
+  void onButtonTap() {
+    print('onButtonTap');
+    setState(() {
+      isComplete = !isComplete;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        GestureDetector(
+          child: Container(
+            child: Center(child: Text('点我边框变绿', style: TextStyle(color: Colors.black),),),
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: isComplete ? Colors.grey : Colors.white,
+              boxShadow: _isActive ? [BoxShadow(color: Colors.green, blurRadius: 20, offset: Offset(10, 20))] : null,
+            ),
+          ),
+          onTapDown: _onTapDown,
+          onTapUp: _onTapUp,
+        ),
+        TapboxC(isComplete: isComplete, onButtonTap: onButtonTap),
+      ],
+    );
+  }
+}
+
+class TapboxC extends StatefulWidget {
+  TapboxC({Key key, this.isComplete = false, @required this.onButtonTap}) : super(key: key);
+
+  final isComplete;
+  final onButtonTap;
+  @override
+  _TapboxCState createState() => new _TapboxCState();
+}
+
+class _TapboxCState extends State<TapboxC> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialButton(onPressed: () {
+      // 通过widget对象来调用widget中的方法
+      widget.onButtonTap();
+    },
+    child: Text('点我'),);
+  }
+}
+
+
+
