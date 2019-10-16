@@ -5,14 +5,15 @@ class PageSelector extends StatefulWidget {
   _PageSelectorState createState() => _PageSelectorState();
 }
 
-class _PageSelectorState extends State<PageSelector> {
+class _PageSelectorState extends State<PageSelector>
+    with SingleTickerProviderStateMixin {
   bool _switchSelected = false;
   bool _checkboxSelected = false;
   TextEditingController _unameController = TextEditingController();
   FocusNode focusNode1 = FocusNode();
   FocusNode focusNode2 = FocusNode();
   GlobalKey _formKey = GlobalKey<FormState>();
-
+  AnimationController _animationController;
   @override
   void initState() {
     //监听输入改变
@@ -31,6 +32,17 @@ class _PageSelectorState extends State<PageSelector> {
       baseOffset: 2,
       extentOffset: _unameController.text.length,
     );
+
+    _animationController =
+        new AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _animationController.forward();
+    _animationController.addListener(() => setState(() => {}));
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -112,71 +124,111 @@ class _PageSelectorState extends State<PageSelector> {
             ),
             // TextField在绘制下划线时使用的颜色是主题色里面的hintColor, 和提示文本颜色是一样的
             Theme(
-                data: Theme.of(context).copyWith(
-                  hintColor: Colors.grey[200], //定义下划线颜色
-                  inputDecorationTheme: InputDecorationTheme(
-                    labelStyle: TextStyle(
-                      color: Colors.red,
-                    ), //定义label字体样式
-                    hintStyle: TextStyle(
-                      color: Colors.yellow,
-                      fontSize: 14.0,
-                    ), //定义提示文本样式
-                  ),
+              data: Theme.of(context).copyWith(
+                hintColor: Colors.grey[200], //定义下划线颜色
+                inputDecorationTheme: InputDecorationTheme(
+                  labelStyle: TextStyle(
+                    color: Colors.red,
+                  ), //定义label字体样式
+                  hintStyle: TextStyle(
+                    color: Colors.yellow,
+                    fontSize: 14.0,
+                  ), //定义提示文本样式
                 ),
-                child: Form(
-                  key: _formKey,
-                  autovalidate: true,
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "用户名",
-                          hintText: "用户名或邮箱",
-                          prefixIcon: Icon(Icons.person),
-                        ),
-                        validator: (v) =>
-                            v.trim().length > 0 ? null : "用户名不能为空",
+              ),
+              child: Form(
+                key: _formKey,
+                autovalidate: true,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "用户名",
+                        hintText: "用户名或邮箱",
+                        prefixIcon: Icon(Icons.person),
                       ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          labelText: "密码",
-                          hintText: "您的登录密码",
-                          hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13.0,
-                          ),
+                      validator: (v) => v.trim().length > 0 ? null : "用户名不能为空",
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: "密码",
+                        hintText: "您的登录密码",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13.0,
                         ),
-                        obscureText: true,
-                        validator: (v) =>
-                            v.trim().length > 5 ? null : '密码不能少于6位',
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 28),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: RaisedButton(
-                                onPressed: () {
-                                  print(Form.of(context));
-                                  if ((_formKey.currentState as FormState)
-                                      .validate()) {
-                                    //验证通过提交数据
-                                    print('验证通过');
-                                  }
-                                },
-                                color: Theme.of(context).primaryColor,
-                                textColor: Colors.white,
-                                child: Text('登陆'),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+                      obscureText: true,
+                      validator: (v) => v.trim().length > 5 ? null : '密码不能少于6位',
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 28),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: RaisedButton(
+                              onPressed: () {
+                                print(Form.of(context));
+                                if ((_formKey.currentState as FormState)
+                                    .validate()) {
+                                  //验证通过提交数据
+                                  print('验证通过');
+                                }
+                              },
+                              color: Theme.of(context).primaryColor,
+                              textColor: Colors.white,
+                              child: Text('登陆'),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            LinearProgressIndicator(
+              backgroundColor: Colors.grey[200],
+              valueColor: AlwaysStoppedAnimation(Colors.blue),
+            ),
+            Divider(),
+            CircularProgressIndicator(
+              backgroundColor: Colors.grey[200],
+              valueColor: AlwaysStoppedAnimation(Colors.blue),
+            ),
+            SizedBox(
+              height: 3,
+              child: LinearProgressIndicator(
+                backgroundColor: Colors.grey[200],
+                valueColor: AlwaysStoppedAnimation(Colors.blue),
+                value: .5,
+              ),
+            ),
+            SizedBox(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.grey[200],
+                valueColor: AlwaysStoppedAnimation(Colors.blue),
+              ),
+              width: 100,
+              height: 100,
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(16),
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.grey[200],
+                      valueColor:
+                          ColorTween(begin: Colors.grey, end: Colors.blue)
+                              .animate(_animationController), // 从灰色变成蓝色
+                      value: _animationController.value,
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
