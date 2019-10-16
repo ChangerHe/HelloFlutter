@@ -10,6 +10,7 @@ import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
+import 'package:hello_flutter/pages/page_text/page_text.dart';
 
 class PanelExamples extends StatelessWidget {
   final arguments;
@@ -192,6 +193,22 @@ class PanelExamples extends StatelessWidget {
                       builder: (context) => PageLifecycle(
                         initValue: 5,
                       ),
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '文本和字体',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.text_rotate_up),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PageText()
                     ),
                   );
                 },
