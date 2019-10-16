@@ -3,10 +3,12 @@ import 'package:hello_flutter/pages/page_bessel_curve/page_bessel_curve.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
+import 'package:hello_flutter/pages/page_image/page_image.dart';
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
 import 'package:hello_flutter/pages/page_lifecycle/page_lifecycle.dart';
 import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
+import 'package:hello_flutter/pages/page_selector/page_selector.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
@@ -226,6 +228,38 @@ class PanelExamples extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PageButton()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '图片和icon',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.image),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageImage()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '单选和复选框',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.image),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageSelector()
                     ),
                   );
                 },
