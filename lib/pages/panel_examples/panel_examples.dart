@@ -11,6 +11,7 @@ import 'package:hello_flutter/pages/page_tab/page_tab.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
 import 'package:hello_flutter/pages/page_text/page_text.dart';
+import 'package:hello_flutter/pages/page_button/page_button.dart';
 
 class PanelExamples extends StatelessWidget {
   final arguments;
@@ -209,6 +210,22 @@ class PanelExamples extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PageText()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '按钮',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.radio_button_checked),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageButton()
                     ),
                   );
                 },

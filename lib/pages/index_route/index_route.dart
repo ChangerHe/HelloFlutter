@@ -34,7 +34,7 @@ class _IndexRoutesPageState extends State<IndexRoutesPage> {
   int _activeTab = 0;
   List<Widget> _pageList = List();
   var _activeColor = Colors.blueAccent;
-  var _inactiveColor = Colors.white;
+  var _inactiveColor = Colors.grey;
 
   _IndexRoutesPageState() {
     _pageList..addAll([

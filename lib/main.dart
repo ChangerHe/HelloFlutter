@@ -9,7 +9,7 @@ void main() => runApp(
         title: 'Index Route Page',
         // home: IndexRoutesPage(),
         home: SplashScreen(),
-        theme: ThemeData.dark(),
+//        theme: ThemeData.dark(),
         // 去除debug的图标
         debugShowCheckedModeBanner: false,
         routes: {
