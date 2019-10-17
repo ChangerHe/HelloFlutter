@@ -29,6 +29,8 @@ class _PageCustomScrollViewState extends State<PageCustomScrollView> {
         }
       }, 40);
     });
+
+    // this._showDialog();
   }
 
   @override
@@ -49,11 +51,37 @@ class _PageCustomScrollViewState extends State<PageCustomScrollView> {
     this.timer = Timer(throttleTime, callback);
   }
 
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Alert Dialog title"),
+          content: new Text("Alert Dialog body"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                // 需要回退两层, 第一层是dialog的蒙层
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
         print('$_lastPressedAt');
+        _showDialog();
         if (_lastPressedAt == null ||
               DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
             //两次点击间隔超过1秒则重新计时
@@ -61,6 +89,7 @@ class _PageCustomScrollViewState extends State<PageCustomScrollView> {
             return Future(() => false);
           }
           return Future(() => true);
+
       },
       child: Scaffold(
         // appBar: AppBar(
@@ -113,7 +142,6 @@ class _PageCustomScrollViewState extends State<PageCustomScrollView> {
                 ),
               ),
             ),
-            //List
             new SliverFixedExtentList(
               itemExtent: 50.0,
               delegate: new SliverChildBuilderDelegate(
