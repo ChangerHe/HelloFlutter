@@ -9,6 +9,7 @@ class PageCustomScrollView extends StatefulWidget {
 class _PageCustomScrollViewState extends State<PageCustomScrollView> {
   ScrollController _controller = ScrollController();
   bool showToTopBtn = false;
+  DateTime _lastPressedAt;
   var timer;
 
   @override
@@ -50,72 +51,84 @@ class _PageCustomScrollViewState extends State<PageCustomScrollView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('自定义scroll view'),
-      // ),
-      floatingActionButton: showToTopBtn
-          ? FloatingActionButton(
-              child: Center(
-                child: Icon(Icons.arrow_downward),
-              ),
-              onPressed: () {},
-            )
-          : null,
-      body: CustomScrollView(
-        controller: _controller,
-        slivers: <Widget>[
-          //AppBar，包含一个导航栏
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 250.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text('Demo'),
-              background: Image.asset(
-                "./images/lake.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          SliverPadding(
-            padding: const EdgeInsets.all(8.0),
-            sliver: new SliverGrid(
-              //Grid
-              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, //Grid按两列显示
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
-                childAspectRatio: 4.0,
-              ),
-              delegate: new SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  //创建子widget
-                  return new Container(
-                    alignment: Alignment.center,
-                    color: Colors.cyan[100 * (index % 9)],
-                    child: new Text('grid item $index'),
-                  );
-                },
-                childCount: 20,
-              ),
-            ),
-          ),
-          //List
-          new SliverFixedExtentList(
-            itemExtent: 50.0,
-            delegate: new SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-              //创建列表项
-              return new Container(
-                alignment: Alignment.center,
-                color: Colors.lightBlue[100 * (index % 9)],
-                child: new Text('list item $index'),
-              );
-            }, childCount: 50 //50个列表项
+    return WillPopScope(
+      onWillPop: () {
+        print('$_lastPressedAt');
+        if (_lastPressedAt == null ||
+              DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
+            //两次点击间隔超过1秒则重新计时
+            _lastPressedAt = DateTime.now();
+            return Future(() => false);
+          }
+          return Future(() => true);
+      },
+      child: Scaffold(
+        // appBar: AppBar(
+        //   title: Text('自定义scroll view'),
+        // ),
+        floatingActionButton: showToTopBtn
+            ? FloatingActionButton(
+                child: Center(
+                  child: Icon(Icons.arrow_downward),
                 ),
-          ),
-        ],
+                onPressed: () {},
+              )
+            : null,
+        body: CustomScrollView(
+          controller: _controller,
+          slivers: <Widget>[
+            //AppBar，包含一个导航栏
+            SliverAppBar(
+              pinned: true,
+              expandedHeight: 250.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: const Text('Demo'),
+                background: Image.asset(
+                  "./images/lake.jpg",
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+
+            SliverPadding(
+              padding: const EdgeInsets.all(8.0),
+              sliver: new SliverGrid(
+                //Grid
+                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, //Grid按两列显示
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
+                  childAspectRatio: 4.0,
+                ),
+                delegate: new SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    //创建子widget
+                    return new Container(
+                      alignment: Alignment.center,
+                      color: Colors.cyan[100 * (index % 9)],
+                      child: new Text('grid item $index'),
+                    );
+                  },
+                  childCount: 20,
+                ),
+              ),
+            ),
+            //List
+            new SliverFixedExtentList(
+              itemExtent: 50.0,
+              delegate: new SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                //创建列表项
+                return new Container(
+                  alignment: Alignment.center,
+                  color: Colors.lightBlue[100 * (index % 9)],
+                  child: new Text('list item $index'),
+                );
+              }, childCount: 50 //50个列表项
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
