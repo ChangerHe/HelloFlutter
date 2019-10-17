@@ -10,7 +10,7 @@ class PageText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Text 测试'),),
-      body: DefaultTextStyle(style: TextStyle(color: Colors.red), child: Column(
+      body: DefaultTextStyle(style: TextStyle(color: Colors.green), child: Column(
         children: <Widget>[
           // 普通文本
           Text('普通text'),

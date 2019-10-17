@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_bessel_curve/page_bessel_curve.dart';
+import 'package:hello_flutter/pages/page_custom_scroll_view/page_custom_scroll_view.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
 import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
+import 'package:hello_flutter/pages/page_grid/page_grid.dart';
 import 'package:hello_flutter/pages/page_image/page_image.dart';
 import 'package:hello_flutter/pages/page_infinite_scroll/page_infinite_scroll.dart';
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
@@ -277,6 +279,38 @@ class PanelExamples extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PageInfiniteScroll()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '不规则Grid',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.grid_on),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageGrid()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '自定义scroll view',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.screen_lock_landscape),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageCustomScrollView()
                     ),
                   );
                 },

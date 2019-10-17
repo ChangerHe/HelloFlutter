@@ -86,12 +86,13 @@ class _PageInfiniteScrollState extends State<PageInfiniteScroll> {
             } else {
               //已经加载了100条数据，不再获取数据。
               return Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    "没有更多了",
-                    style: TextStyle(color: Colors.grey),
-                  ));
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  "没有更多了",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              );
             }
           }
           //显示单词列表项
