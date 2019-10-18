@@ -7,6 +7,7 @@ import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_grid/page_grid.dart';
 import 'package:hello_flutter/pages/page_image/page_image.dart';
 import 'package:hello_flutter/pages/page_infinite_scroll/page_infinite_scroll.dart';
+import 'package:hello_flutter/pages/page_inherited_widget/page_inherited_widget.dart';
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
 import 'package:hello_flutter/pages/page_lifecycle/page_lifecycle.dart';
 import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
@@ -311,6 +312,22 @@ class PanelExamples extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PageCustomScrollView()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '数据共享(InheritedWidget)',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.content_copy),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageInheritedWidget()
                     ),
                   );
                 },

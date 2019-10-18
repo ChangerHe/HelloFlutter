@@ -9,7 +9,7 @@ import 'package:hello_flutter/pages/panel_member/panel_member.dart';
 
 final List<BottomNavigationBarItem> bottomTabs = [
   BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.folder), title: Text('20个案例')),
+      icon: Icon(CupertinoIcons.folder), title: Text('案例')),
   BottomNavigationBarItem(icon: Icon(CupertinoIcons.search), title: Text('分类')),
   BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.shopping_cart), title: Text('购物车')),
@@ -19,7 +19,7 @@ final List<BottomNavigationBarItem> bottomTabs = [
 ];
 
 final List<String> tabTitles = [
-  '20个案例',
+  '案例',
   '分类',
   '购物车',
   '会员中心',
