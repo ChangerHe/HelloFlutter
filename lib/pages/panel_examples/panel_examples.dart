@@ -14,6 +14,7 @@ import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_selector/page_selector.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
+import 'package:hello_flutter/pages/page_theme/page_theme.dart';
 import 'package:hello_flutter/pages/route_animation/route_animation.dart';
 import 'package:hello_flutter/pages/page_right_back/page_right_back.dart';
 import 'package:hello_flutter/pages/page_text/page_text.dart';
@@ -328,6 +329,22 @@ class PanelExamples extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PageInheritedWidget()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '更换主题',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.theaters),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageTheme()
                     ),
                   );
                 },
