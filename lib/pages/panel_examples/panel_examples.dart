@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hello_flutter/pages/page_bessel_curve/page_bessel_curve.dart';
 import 'package:hello_flutter/pages/page_custom_scroll_view/page_custom_scroll_view.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
+import 'package:hello_flutter/pages/page_event/page_event.dart';
 import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_grid/page_grid.dart';
@@ -345,6 +346,22 @@ class PanelExamples extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => PageTheme()
+                    ),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '事件系统',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.theaters),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PageEvent()
                     ),
                   );
                 },
