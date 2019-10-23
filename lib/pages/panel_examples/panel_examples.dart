@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/pages/page_animation/page_animation.dart';
 import 'package:hello_flutter/pages/page_bessel_curve/page_bessel_curve.dart';
 import 'package:hello_flutter/pages/page_custom_scroll_view/page_custom_scroll_view.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
@@ -216,9 +217,7 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => PageText()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageText()),
                   );
                 },
               ),
@@ -232,9 +231,7 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PageButton()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageButton()),
                   );
                 },
               ),
@@ -248,9 +245,7 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PageImage()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageImage()),
                   );
                 },
               ),
@@ -264,9 +259,7 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PageSelector()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageSelector()),
                   );
                 },
               ),
@@ -281,8 +274,7 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PageInfiniteScroll()
-                    ),
+                        builder: (context) => PageInfiniteScroll()),
                   );
                 },
               ),
@@ -296,9 +288,7 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PageGrid()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageGrid()),
                   );
                 },
               ),
@@ -313,8 +303,7 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PageCustomScrollView()
-                    ),
+                        builder: (context) => PageCustomScrollView()),
                   );
                 },
               ),
@@ -329,8 +318,7 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => PageInheritedWidget()
-                    ),
+                        builder: (context) => PageInheritedWidget()),
                   );
                 },
               ),
@@ -344,9 +332,7 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PageTheme()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageTheme()),
                   );
                 },
               ),
@@ -360,9 +346,34 @@ class PanelExamples extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PageEvent()
-                    ),
+                    MaterialPageRoute(builder: (context) => PageEvent()),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '动画',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.airline_seat_legroom_normal),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    FadeRoute(builder: (context) => PageAnimation()),
+                    // PageRouteBuilder(
+                    //   transitionDuration: Duration(microseconds: 500),
+                    //   pageBuilder: (
+                    //     BuildContext context,
+                    //     Animation animation,
+                    //     Animation secondaryAnimation,
+                    //   ) {
+                    //     return FadeTransition(
+                    //       opacity: animation,
+                    //       child: PageAnimation(),
+                    //     );
+                    //   },
+                    // ),
                   );
                 },
               ),
@@ -372,5 +383,62 @@ class PanelExamples extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class FadeRoute extends PageRoute {
+  FadeRoute({
+    @required this.builder,
+    this.transitionDuration = const Duration(milliseconds: 300),
+    this.opaque = true,
+    this.barrierDismissible = false,
+    this.barrierColor,
+    this.barrierLabel,
+    this.maintainState = true,
+  });
+
+  final WidgetBuilder builder;
+
+  @override
+  final Duration transitionDuration;
+
+  @override
+  final bool opaque;
+
+  @override
+  final bool barrierDismissible;
+
+  @override
+  final Color barrierColor;
+
+  @override
+  final String barrierLabel;
+
+  @override
+  final bool maintainState;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) =>
+      builder(context);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    // return FadeTransition(
+    //   opacity: animation,
+    //   child: builder(context),
+    // );
+
+    if (isActive) {
+      return FadeTransition(
+        opacity: animation,
+        child: builder(context),
+      );
+    } else {
+      // TODO: 为什么使用padding
+      //是返回，则不应用过渡动画
+      return Padding(padding: EdgeInsets.zero);
+    }
   }
 }
