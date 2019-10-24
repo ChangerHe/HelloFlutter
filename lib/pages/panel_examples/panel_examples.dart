@@ -14,6 +14,7 @@ import 'package:hello_flutter/pages/page_inherited_widget/page_inherited_widget.
 import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart';
 import 'package:hello_flutter/pages/page_lifecycle/page_lifecycle.dart';
 import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
+import 'package:hello_flutter/pages/page_muti_animation/page_muti_animation.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_selector/page_selector.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
@@ -389,6 +390,20 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PageHero()),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '组合动画',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.threesixty),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageMutiAnimation()),
                   );
                 },
               ),
