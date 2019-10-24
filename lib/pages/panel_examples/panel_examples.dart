@@ -15,6 +15,7 @@ import 'package:hello_flutter/pages/page_keep_tab_alive/page_keep_tab_alive.dart
 import 'package:hello_flutter/pages/page_lifecycle/page_lifecycle.dart';
 import 'package:hello_flutter/pages/page_media_query/page_media_query.dart';
 import 'package:hello_flutter/pages/page_muti_animation/page_muti_animation.dart';
+import 'package:hello_flutter/pages/page_operate_file/page_operate_file.dart';
 import 'package:hello_flutter/pages/page_search_bar/page_search_bar.dart';
 import 'package:hello_flutter/pages/page_selector/page_selector.dart';
 import 'package:hello_flutter/pages/page_tab/page_tab.dart';
@@ -404,6 +405,20 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PageMutiAnimation()),
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '文件操作',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.file_upload),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageOperateFile())
                   );
                 },
               ),
