@@ -8,6 +8,7 @@ import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
 import 'package:hello_flutter/pages/page_grid/page_grid.dart';
 import 'package:hello_flutter/pages/page_hero/page_hero.dart';
+import 'package:hello_flutter/pages/page_http_client/page_http_client.dart';
 import 'package:hello_flutter/pages/page_image/page_image.dart';
 import 'package:hello_flutter/pages/page_infinite_scroll/page_infinite_scroll.dart';
 import 'package:hello_flutter/pages/page_inherited_widget/page_inherited_widget.dart';
@@ -419,6 +420,20 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PageOperateFile())
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  '网络请求',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.network_cell),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageHttpClient())
                   );
                 },
               ),
