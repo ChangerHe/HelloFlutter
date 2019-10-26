@@ -3,6 +3,7 @@ import 'package:hello_flutter/pages/page_animation/page_animation.dart';
 import 'package:hello_flutter/pages/page_bessel_curve/page_bessel_curve.dart';
 import 'package:hello_flutter/pages/page_custom_scroll_view/page_custom_scroll_view.dart';
 import 'package:hello_flutter/pages/page_custom_tab/page_custom_tab.dart';
+import 'package:hello_flutter/pages/page_dio/page_dio.dart';
 import 'package:hello_flutter/pages/page_event/page_event.dart';
 import 'package:hello_flutter/pages/page_expand/page_expand.dart';
 import 'package:hello_flutter/pages/page_filter/page_filter.dart';
@@ -434,6 +435,20 @@ class PanelExamples extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PageHttpClient())
+                  );
+                },
+              ),
+              Divider(),
+              ListTile(
+                title: Text(
+                  'Dio',
+                ),
+                // subtitle: Text(''),
+                leading: Icon(Icons.network_locked),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PageDio())
                   );
                 },
               ),
